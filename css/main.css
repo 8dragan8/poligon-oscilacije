@@ -1,0 +1,32 @@
+* {
+    font-family: 'Courier New';
+    color: white;
+    margin: 0px;
+    padding: 0px;
+    border: 0px;
+
+    
+    /* align-content: center; */
+
+}
+body {
+    margin: 10px;
+    background-color: black;
+
+}
+svg{
+    max-height: 100vh;
+}
+
+h2 {
+    text-align: center;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+div > input{
+    margin: 10px;
+    align-content: center;
+}
+path{
+    fill: none;
+}

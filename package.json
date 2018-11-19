@@ -1,0 +1,11 @@
+{
+  "name": "poligon-oscilacije",
+  "version": "1.0.0",
+  "description": "vektor animacija",
+  "main": "index.js",
+  "scripts": {
+    "test": "index.html"
+  },
+  "author": "dre",
+  "license": "ISC"
+}
