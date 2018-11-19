@@ -29,4 +29,10 @@ div > input{
 }
 path{
     fill: none;
+    stroke-width: 2px;
+}
+circle{
+    r: 9px;
+    stroke: black;
+    stroke-width: 1px;
 }

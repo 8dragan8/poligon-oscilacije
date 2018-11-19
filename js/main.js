@@ -85,19 +85,31 @@ let slider = document.getElementById('slider')
 let slidLabel = document.getElementById('slidLabel')
 let speed = document.getElementById('speed')
 let speedLabel = document.getElementById('speedLabel')
+let poliOnOff = document.getElementById('inpPoliChBx')
 
 slidLabel.innerHTML = brojPoligona
-speedLabel.innerHTML = 'x'+brzina
+speedLabel.innerHTML = 'x' + brzina
 
 init(brojPoligona, brzina)
+poliOnOff.onchange = function () {
+	console.log(this.checked)
+	if (this.checked) {
+		document.styleSheets[0].rules[5].style['strokeWidth'] = '2px'
+	}
+	else if (!this.checked) {
+		document.styleSheets[0].rules[5].style['strokeWidth'] = '0px'
 
-bojaPozadine.onchange=function () {
-	let body = document.getElementsByTagName('body')
-	body[0].setAttribute('style', `background-color: ${this.value};`)
+	}
+
 }
-speed.onchange=function () {
+
+// bojaPozadine.onchange = function () {
+// 	let body = document.getElementsByTagName('body')
+// 	body[0].setAttribute('style', `background-color: ${this.value};`)
+// }
+speed.onchange = function () {
 	brzina = Number(this.value)
-	speedLabel.innerHTML = 'x'+brzina
+	speedLabel.innerHTML = 'x' + brzina
 	init(brojPoligona, brzina)
 }
 
