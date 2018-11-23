@@ -35,4 +35,5 @@ circle{
     r: 9px;
     stroke: black;
     stroke-width: 1px;
+    fill: aqua !important;
 }

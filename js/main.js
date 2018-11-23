@@ -8,7 +8,10 @@ class poligon {
 		this.n = n
 		this.colour = colour
 		this.r = this.gabarit
-		this.koordinate = this.koordin
+		this.koordinate1 = this.koordinate
+		this.svg1 = this.svg
+		this.atom1 = this.atom
+		this.anime1 = this.anime
 	}
 
 	//opisani krug odredjuje gabarit poligona
@@ -18,7 +21,7 @@ class poligon {
 
 	}
 
-	get koordin() {
+	get koordinate() {
 		let koordinate = []
 		let r = this.gabarit
 		let n = this.n
@@ -37,7 +40,7 @@ class poligon {
 			let x = this.ancorT[0] + Math.floor(r * Math.cos(alfa))
 			let y = this.ancorT[1] + Math.floor(r * Math.sin(alfa))
 
-			koordinate.push([x, y])
+			koordinate.push({ x: x, y: y })
 
 		}
 		let temp1 = koordinate.slice(ofset)
@@ -53,28 +56,66 @@ class poligon {
 
 		// 	tacke += `${tacka[0]},${tacka[1]} `
 		// })
-		this.koordin.forEach((tacka, i) => {
+		this.koordinate1.forEach((tacka, i) => {
 			if (i == 0) {
-				tacke += `M ${tacka[0]},${tacka[1]} `
+				tacke += `M ${tacka.x},${tacka.y} `
 
-			} else if (i + 1 == this.koordin.length) {
+			} else if (i + 1 == this.koordinate1.length) {
 
-				tacke += `${tacka[0]},${tacka[1]} z`
+				tacke += `${tacka.x},${tacka.y} z`
 			} else {
-				tacke += `L ${tacka[0]},${tacka[1]} `
+				tacke += `L ${tacka.x},${tacka.y} `
 
 			}
 
 		})
 
-		let svg = `<path class='kvadrat' d='${tacke}' style='stroke:${this.colour};' id='motion${this.n}'/>`
+		let path = document.createElementNS('http://www.w3.org/2000/svg', 'path')
+		path.classList = 'kvadrat'
+		path.setAttribute('d', tacke)
+		path.style.stroke = `${this.colour}`
+		path.id = `motion${this.n}`
 
-		return svg
+
+		return path
 	}
+	get atom() {
+
+		let atom = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
+		atom.setAttribute('cx', this.koordinate1[0].x)
+		atom.setAttribute('cy', this.koordinate1[0].y)
+		atom.setAttribute('r', 6)
+		// atom.setAttribute('fill', this.colour)
+		atom.style.fill = `${this.colour}`
+		atom.classList = 'kruzic'
+		atom.id = `kruzic${this.n}`
+
+		return atom
+
+	}
+
+	anime(atom, brzina) {
+		var tl = new TimelineLite({
+			onComplete: function () {
+				this.restart()
+			}
+		})
+
+		for (let i = 1; i < this.koordinate1.length; i++) {
+
+			tl.add(TweenLite.to(atom, brzina, { ease: Linear.easeNone, x: this.koordinate1[i].x - this.koordinate1[0].x, y: this.koordinate1[i].y - this.koordinate1[0].y }))
+		}
+		tl.add(TweenLite.to(atom, brzina, { x: 0, y: 0, ease: Linear.easeNone }))
+		// tl.render()
+		// console.log(kruzic1.cx)
+
+		return tl
+	}
+
 }
 // parametri
 
-let brojPoligona = 32
+let brojPoligona = 16
 let brzina = 1
 
 
@@ -92,7 +133,7 @@ speedLabel.innerHTML = 'x' + brzina
 
 init(brojPoligona, brzina)
 poliOnOff.onchange = function () {
-	console.log(this.checked)
+	// console.log(this.checked)
 	if (this.checked) {
 		document.styleSheets[0].rules[5].style['strokeWidth'] = '2px'
 	}
@@ -103,10 +144,6 @@ poliOnOff.onchange = function () {
 
 }
 
-// bojaPozadine.onchange = function () {
-// 	let body = document.getElementsByTagName('body')
-// 	body[0].setAttribute('style', `background-color: ${this.value};`)
-// }
 speed.onchange = function () {
 	brzina = Number(this.value)
 	speedLabel.innerHTML = 'x' + brzina
@@ -132,13 +169,17 @@ function init(brojPoligona, speedIndex) {
 	}
 
 
-	// console.log(`brojPoligona+2: ${brojPoligona+2}`)
-	// console.log(`brojPoligona: ${brojPoligona}`)
-	// console.log(`Skala: ${skala}`)
+	// console.log(poligoni[1])
+	// console.log(poligoni[1].svg1)
+	// console.log(poligoni[1].atom1)
+	// console.log(poligoni[1].anime1)
 
 
 	let animacija = document.getElementsByClassName('animacija')
-	animacija[0].innerHTML = '<svg viewBox=\'0 0 1000 1000\'></svg>'
+	let svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
+	svg.setAttribute('viewBox', '0 0 1000 1000')
+	animacija[0].innerHTML = ''
+	animacija[0].appendChild(svg)
 	let insSvg = document.getElementsByTagName('svg')
 	insSvg[0].innerHTML = ''
 
@@ -147,27 +188,34 @@ function init(brojPoligona, speedIndex) {
 
 	for (let i = poligoni.length - 1; i >= 0; i--) {
 
-		insSvg[0].innerHTML += poligoni[i].svg
+		insSvg[0].appendChild(poligoni[i].svg)
 
 	}
 
 	for (let i = 0; i < poligoni.length; i++) {
+		let poligon = poligoni[i]
 
-		let n = poligoni[i].n
-		let brzina = ((n / x) + 1) * speedIndex
-
+		let n = poligon.n
+		// let brzina = ((n / x) + 1) * speedIndex
+		let brzina = 20 / n / x * speedIndex
+		console.log(`brzina = (20/(${n} * ${x}) * ${speedIndex}`)
+		console.log(`brzina = ${brzina}`)
 		x--
 
-		let bojaKrug = bojaHsla(poligoni.length + 1, poligoni.length + 1 - i)
+		insSvg[0].append(poligon.atom)
+		// let atom = document.getElementById(`kruzic${poligon.n}`)
+		let atom = `#kruzic${poligon.n}`
+		poligon.anime(atom, brzina).kill()
+		poligon.anime(atom, brzina)
 
-		insSvg[0].innerHTML += `<circle cx='0' cy='0' r="6" fill='${bojaKrug}'class='kruzic'>
-								<animateMotion dur="${brzina}s" repeatCount="indefinite" id="${poligoni[i].n}">
-									<mpath xlink:href="#motion${poligoni[i].n}"/>
-								</animateMotion>
-							</circle>`
+
+		// console.log(poligon.atom)
 
 	}
+
 }
+
+
 
 function bojaRND() {
 	let hex = '000000' + (Math.floor(Math.random() * 0xffffff)).toString(16)
