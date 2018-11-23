@@ -137,12 +137,31 @@ speedLabel.innerHTML = 'x' + brzina
 
 init(brojPoligona, brzina)
 poliOnOff.onchange = function () {
+
+	let klasaPath = ''
+
+	let cssovi = document.styleSheets
+	for (let i = 0; i < cssovi.length; i++) {
+		let klase = cssovi[i].rules
+
+		for (let j = 0; j < klase.length; j++) {
+			console.log(klase[j].selectorText)
+			if (klase[j].selectorText == 'path') {
+				
+				klasaPath=klase[j]
+				
+			}
+			
+		}
+		
+	}
+	console.log(klasaPath)
 	// console.log(this.checked)
 	if (this.checked) {
-		document.styleSheets[0].rules[5].style['strokeWidth'] = '2px'
+		klasaPath.style['strokeWidth'] = '2px'
 	}
 	else if (!this.checked) {
-		document.styleSheets[0].rules[5].style['strokeWidth'] = '0px'
+		klasaPath.style['strokeWidth'] = '0px'
 
 	}
 
