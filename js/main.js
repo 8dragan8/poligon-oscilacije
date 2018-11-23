@@ -95,17 +95,21 @@ class poligon {
 	}
 
 	anime(atom, brzina) {
-		var tl = new TimelineLite({
-			onComplete: function () {
-				this.restart()
-			}
-		})
+		let tl = new TimelineMax(
+			{ repeat: -1 }
+		)
+		// let easeDr = Power1.easeInOut
+		// let easeDr = Power2.easeInOut
+		// let easeDr = Power3.easeInOut
+		let easeDr = Power4.easeInOut
+		// let easeDr = Circ.easeInOut
+		// let easeDr = Elastic.easeIn.config(1, 0.3)
 
 		for (let i = 1; i < this.koordinate1.length; i++) {
 
-			tl.add(TweenLite.to(atom, brzina, { ease: Linear.easeNone, x: this.koordinate1[i].x - this.koordinate1[0].x, y: this.koordinate1[i].y - this.koordinate1[0].y }))
+			tl.add(TweenLite.to(atom, brzina, { ease: easeDr, x: this.koordinate1[i].x - this.koordinate1[0].x, y: this.koordinate1[i].y - this.koordinate1[0].y }))
 		}
-		tl.add(TweenLite.to(atom, brzina, { x: 0, y: 0, ease: Linear.easeNone }))
+		tl.add(TweenLite.to(atom, brzina, { x: 0, y: 0, ease: easeDr }))
 		// tl.render()
 		// console.log(kruzic1.cx)
 
@@ -117,6 +121,7 @@ class poligon {
 
 let brojPoligona = 16
 let brzina = 1
+let tl = new TimelineMax({ repeat: -1 })
 
 
 
@@ -127,6 +132,9 @@ let slidLabel = document.getElementById('slidLabel')
 let speed = document.getElementById('speed')
 let speedLabel = document.getElementById('speedLabel')
 let poliOnOff = document.getElementById('inpPoliChBx')
+let fwdBTN = document.getElementById('fwd')
+let pauseBTN = document.getElementById('pause')
+let revBTN = document.getElementById('rev')
 
 slidLabel.innerHTML = brojPoligona
 speedLabel.innerHTML = 'x' + brzina
@@ -169,7 +177,7 @@ function init(brojPoligona, speedIndex) {
 	}
 
 
-	// console.log(poligoni[1])
+	console.log(poligoni[1])
 	// console.log(poligoni[1].svg1)
 	// console.log(poligoni[1].atom1)
 	// console.log(poligoni[1].anime1)
@@ -192,6 +200,7 @@ function init(brojPoligona, speedIndex) {
 
 	}
 
+	tl.kill()
 	for (let i = 0; i < poligoni.length; i++) {
 		let poligon = poligoni[i]
 
@@ -203,16 +212,26 @@ function init(brojPoligona, speedIndex) {
 		x--
 
 		insSvg[0].append(poligon.atom)
-		// let atom = document.getElementById(`kruzic${poligon.n}`)
 		let atom = `#kruzic${poligon.n}`
-		poligon.anime(atom, brzina).kill()
-		poligon.anime(atom, brzina)
+
+		// poligon.anime(atom, brzina).kill
+		tl.add(poligon.anime(atom, brzina), 0)
+			.play()
 
 
 		// console.log(poligon.atom)
 
 	}
 
+}
+fwdBTN.onclick = function () {
+	tl.play()
+}
+pauseBTN.onclick = function () {
+	tl.pause()
+}
+revBTN.onclick = function () {
+	tl.reverse()
 }
 
 
