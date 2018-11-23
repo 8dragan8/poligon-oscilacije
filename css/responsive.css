@@ -31,8 +31,9 @@
         /* background-color: rgb(4, 49, 8);        */
         padding: 5px;
         grid-template-areas:
-        ". kontrole ."
-        "boja-pozadine range speed";
+        "kontr-h kontr-h"
+        "grupa1 grupa2"
+        "grupa3 grupa4";
         
         grid-template-columns: auto auto auto;
         justify-self: center;
@@ -41,16 +42,33 @@
         
     }
     
-    .boja-pozadine {
+    .kontr-h {
         padding: 5px;
-        grid-area: boja-pozadine;
+        grid-area: kontr-h;
+        justify-self: center;
+        align-self: top;    }
+    .grupa1 {
+        padding: 5px;
+        grid-area: grupa1;
+        /* background-color: rgb(169, 172, 20); */
+        justify-self: center;
+        align-self: top;    }
+    .grupa2 {
+        padding: 5px;
+        grid-area: grupa2;
         /* background-color: rgb(169, 172, 20); */
         justify-self: center;
         align-self: top;    }
     
-    .range {
+    .grupa3 {
         padding: 5px;
-        grid-area: range;
+        grid-area: grupa3;
+        /* background-color: rgb(49, 4, 4); */
+        justify-self: center;
+        align-self: top;    }
+    .grupa4 {
+        padding: 5px;
+        grid-area: grupa4;
         /* background-color: rgb(49, 4, 4); */
         justify-self: center;
         align-self: top;    }
@@ -96,29 +114,49 @@
         width: 200px;
         grid-area: kontrole;
         grid-template-areas:
-        "kontrole"
-        "boja-pozadine"
-        "range";
+        "kontr-h"
+        "grupa1"
+        "grupa2"
+        "grupa3"
+        "grupa4";
         /* background-color: rgb(4, 49, 8);  */
         height: 30px; 
         justify-self: start;
         align-self: top;     
         text-align: left;
     }
-    
-    .boja-pozadine {
+    .kontr-h{
         height: 95px;      
         justify-self: start;
-        grid-area: boja-pozadine;
+        grid-area: kontr-h;
+
+    }
+    
+    .grupa1 {
+        height: 95px;      
+        justify-self: start;
+        grid-area: grupa1;
+        /* background-color: rgb(169, 172, 20); */
+    }
+    .grupa2 {
+        height: 95px;      
+        justify-self: start;
+        grid-area: grupa2;
         /* background-color: rgb(169, 172, 20); */
     }
     
-    .range {
+    .grupa3 {
         justify-self: start;
         height: 95px;      
-        grid-area: range;
+        grid-area: grupa3;
         /* background-color: rgb(49, 4, 4); */
     }
-
-
+    .grupa4 {
+        height: 95px;      
+        justify-self: start;
+        grid-area: grupa4;
+        /* background-color: rgb(169, 172, 20); */
+    }
+    
+    
 }

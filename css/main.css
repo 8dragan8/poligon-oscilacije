@@ -42,3 +42,12 @@ button{
     padding: 4px;
     color: black;
 }
+
+select{
+    padding: 4px;
+    color: black;
+}
+option{
+    color: black;
+}
+

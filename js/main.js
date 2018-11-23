@@ -8,10 +8,7 @@ class poligon {
 		this.n = n
 		this.colour = colour
 		this.r = this.gabarit
-		this.koordinate1 = this.koordinate
-		this.svg1 = this.svg
-		this.atom1 = this.atom
-		this.anime1 = this.anime
+
 	}
 
 	//opisani krug odredjuje gabarit poligona
@@ -52,15 +49,12 @@ class poligon {
 
 	get svg() {
 		let tacke = ''
-		// this.koordin.forEach(tacka => {
 
-		// 	tacke += `${tacka[0]},${tacka[1]} `
-		// })
-		this.koordinate1.forEach((tacka, i) => {
+		this.koordinate.forEach((tacka, i) => {
 			if (i == 0) {
 				tacke += `M ${tacka.x},${tacka.y} `
 
-			} else if (i + 1 == this.koordinate1.length) {
+			} else if (i + 1 == this.koordinate.length) {
 
 				tacke += `${tacka.x},${tacka.y} z`
 			} else {
@@ -82,8 +76,9 @@ class poligon {
 	get atom() {
 
 		let atom = document.createElementNS('http://www.w3.org/2000/svg', 'circle')
-		atom.setAttribute('cx', this.koordinate1[0].x)
-		atom.setAttribute('cy', this.koordinate1[0].y)
+		atom.setAttribute('cx', this.koordinate[0].x, 'cy', this.koordinate[0].y, 'r', 6)
+		atom.setAttribute('cx', this.koordinate[0].x)
+		atom.setAttribute('cy', this.koordinate[0].y)
 		atom.setAttribute('r', 6)
 		// atom.setAttribute('fill', this.colour)
 		atom.style.fill = `${this.colour}`
@@ -98,16 +93,17 @@ class poligon {
 		let tl = new TimelineMax(
 			{ repeat: -1 }
 		)
+		// let easeDr = Linear.easeNone
 		// let easeDr = Power1.easeInOut
-		// let easeDr = Power2.easeInOut
+		let easeDr = Power2.easeInOut
 		// let easeDr = Power3.easeInOut
-		let easeDr = Power4.easeInOut
+		// let easeDr = Power4.easeInOut
 		// let easeDr = Circ.easeInOut
 		// let easeDr = Elastic.easeIn.config(1, 0.3)
 
-		for (let i = 1; i < this.koordinate1.length; i++) {
+		for (let i = 1; i < this.koordinate.length; i++) {
 
-			tl.add(TweenLite.to(atom, brzina, { ease: easeDr, x: this.koordinate1[i].x - this.koordinate1[0].x, y: this.koordinate1[i].y - this.koordinate1[0].y }))
+			tl.add(TweenLite.to(atom, brzina, { ease: easeDr, x: this.koordinate[i].x - this.koordinate[0].x, y: this.koordinate[i].y - this.koordinate[0].y }))
 		}
 		tl.add(TweenLite.to(atom, brzina, { x: 0, y: 0, ease: easeDr }))
 		// tl.render()
