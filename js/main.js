@@ -221,8 +221,9 @@ function init(brojPoligona, speedIndex) {
 
 		let n = poligon.n
 		// let brzina = ((n / x) + 1) * speedIndex
-		let brzina = 20 / n / x * speedIndex
-		console.log(`brzina = (20/(${n} * ${x}) * ${speedIndex}`)
+		// let brzina = 20 / n / x * speedIndex
+		let brzina = (poligoni.length+3) / n / x * speedIndex
+		console.log(`brzina = (${poligoni.length+3}/(${n} * ${x}) * ${speedIndex}`)
 		console.log(`brzina = ${brzina}`)
 		x--
 
