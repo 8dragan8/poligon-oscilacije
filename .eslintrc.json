@@ -1,8 +1,8 @@
 {
     "env": {
-        "es6": true,
         "node": true,
-        "browser": true
+        "browser": true,
+        "es6": true
     },
     "extends": "eslint:recommended",
     "parserOptions": {
@@ -16,16 +16,17 @@
         ],
         "linebreak-style": [
             "error",
-            "unix"
+            "windows"
         ],
         "quotes": [
             "error",
-            "single"
+            "backtick"
         ],
         "semi": [
             "error",
             "never"
-		],
-		"no-console": 0
+        ],
+        "no-console":"off"
+        
     }
 }

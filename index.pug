@@ -1,0 +1,32 @@
+extends ./views/head.pug
+
+mixin inputIlabel(id, type, name, idLabel, label)
+    .input
+    input(id = id, type=type, name=name)&attributes(attributes)
+    label(for=name, id=idLabel)=label
+
+block content
+    .kontr-h
+        h2 Kontrole1
+        button#rev &lt;&lt;
+        button#pause pause
+        button#fwd &gt;&gt;
+
+    .grupa1
+        +inputIlabel('inpPoliChBx', "checkbox", "poligoni", "inpPoliLab", "Prikaži poligone")(checked)
+
+    .grupa2
+        h3 Kretanje
+        .input
+            - var eases = ["Linear", "Power", "SteppedEase 3", "SteppedEase 2", "SlowMo", "Circ", "Elastic"]
+            select#eases(name="move")
+                each ease, i in eases
+                    option(value = i+1)=ease
+                    
+    .grupa3
+        h3 Broj poligona
+        +inputIlabel('slider', "range", "broj poligona", "slidLabel", "")(min="3" max="160" value="32")
+
+    .grupa4
+        h3 Brzina
+        +inputIlabel('speed', "range", "speed", "speedLabel", "")(min="0.1" max="2" value="1" step="0.1")

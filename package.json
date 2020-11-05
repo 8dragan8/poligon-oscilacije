@@ -2,14 +2,23 @@
   "name": "poligon-oscilacije",
   "version": "1.0.0",
   "description": "vektor animacija",
-  "main": "index.js",
+  "main": "index.html",
   "repository": {
-    "type" : "git",
-    "url" : "https://github.com/8dragan8/poligon-oscilacije.git"
+    "type": "git",
+    "url": "https://github.com/8dragan8/poligon-oscilacije.git"
   },
   "scripts": {
-    "test": "index.html"
+    "test": "parcel index.pug -d ./out/test",
+    "build": "parcel build index.pug -d ./out/build"
   },
   "author": "dre",
-  "license": "ISC"
+  "license": "ISC",
+  "devDependencies": {
+    "cssnano": "^4.1.8",
+    "pug": "^2.0.3"
+  },
+  "dependencies": {
+    "greensock": "^1.20.2",
+    "gsap": "^2.0.2"
+  }
 }
